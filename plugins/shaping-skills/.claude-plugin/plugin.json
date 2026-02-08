@@ -1,0 +1,11 @@
+{
+  "name": "shaping-skills",
+  "version": "1.0.0",
+  "description": "Shape Up methodology skills for Claude Code. Includes /shaping and /breadboarding.",
+  "author": {
+    "name": "rjs",
+    "url": "https://github.com/rjs"
+  },
+  "homepage": "https://github.com/rjs/shaping-skills",
+  "license": "MIT"
+}

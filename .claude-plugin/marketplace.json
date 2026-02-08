@@ -1,0 +1,25 @@
+{
+  "name": "shaping-skills",
+  "owner": {
+    "name": "rjs",
+    "url": "https://github.com/rjs"
+  },
+  "metadata": {
+    "description": "Shaping and breadboarding skills for Claude Code — the methodology from Shape Up adapted for working with an LLM.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "shaping-skills",
+      "description": "Shape Up methodology skills for Claude Code. Includes /shaping for iterating on problems and solutions, and /breadboarding for mapping systems into affordances and wiring.",
+      "version": "1.0.0",
+      "author": {
+        "name": "rjs",
+        "url": "https://github.com/rjs"
+      },
+      "homepage": "https://github.com/rjs/shaping-skills",
+      "tags": ["shaping", "breadboarding", "shape-up", "product", "methodology"],
+      "source": "./plugins/shaping-skills"
+    }
+  ]
+}

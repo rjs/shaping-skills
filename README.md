@@ -12,14 +12,20 @@
 
 ## Install
 
+### Plugin (recommended)
+
 ```bash
-# Clone the repo, then symlink each skill into your Claude Code skills directory
-git clone https://github.com/rjs/shaping-skills.git ~/.local/share/shaping-skills
-ln -s ~/.local/share/shaping-skills/breadboarding ~/.claude/skills/breadboarding
-ln -s ~/.local/share/shaping-skills/shaping ~/.claude/skills/shaping
+claude plugin marketplace add rjs/shaping-skills
+claude plugin install shaping-skills
 ```
 
-Each skill must be a direct child of `~/.claude/skills/` so Claude Code can discover it. Symlinks keep them updatable with `git pull`.
+### Manual (symlinks)
+
+```bash
+git clone https://github.com/rjs/shaping-skills.git ~/.local/share/shaping-skills
+ln -s ~/.local/share/shaping-skills/plugins/shaping-skills/skills/breadboarding ~/.claude/skills/breadboarding
+ln -s ~/.local/share/shaping-skills/plugins/shaping-skills/skills/shaping ~/.claude/skills/shaping
+```
 
 ---
 
