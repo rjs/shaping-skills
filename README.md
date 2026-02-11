@@ -21,6 +21,42 @@ ln -s ~/.local/share/shaping-skills/shaping ~/.claude/skills/shaping
 
 Each skill must be a direct child of `~/.claude/skills/` so Claude Code can discover it. Symlinks keep them updatable with `git pull`.
 
+## Hook: Ripple Check
+
+The repo includes a hook that reminds Claude to check for ripple effects when editing shaping documents. When Claude writes or edits a `.md` file with `shaping: true` in its frontmatter, the hook prompts a checklist — update affordance tables, fit checks, work streams, etc.
+
+### Setup
+
+1. Symlink the hook script:
+
+```bash
+mkdir -p ~/.claude/hooks
+ln -s ~/.local/share/shaping-skills/hooks/shaping-ripple.sh ~/.claude/hooks/shaping-ripple.sh
+```
+
+2. Add the hook to your `~/.claude/settings.json`:
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/shaping-ripple.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+This fires after every `Write` or `Edit` tool call. It only activates for shaping documents (those with `shaping: true` frontmatter) — all other files pass through silently.
+
 ---
 
 This README was written by [Claude Code](https://claude.com/claude-code).
