@@ -1,3 +1,9 @@
+---
+name: shaping-skills
+description: "Meta-package: shaping and breadboarding skills for Shape Up methodology. Not a skill itself."
+disable-model-invocation: true
+---
+
 # Shaping Skills
 
 [Claude Code](https://claude.com/claude-code) skills for shaping and breadboarding — the methodology from [Shape Up](https://basecamp.com/shapeup) adapted for working with an LLM.
