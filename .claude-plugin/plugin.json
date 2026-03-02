@@ -1,0 +1,12 @@
+{
+  "name": "shaping-skills",
+  "version": "1.0.0",
+  "description": "Skills for shaping and breadboarding — the methodology from Shape Up adapted for working with an LLM.",
+  "author": {
+    "name": "rjs",
+    "url": "https://github.com/rjs"
+  },
+  "repository": "https://github.com/rjs/shaping-skills",
+  "license": "MIT",
+  "keywords": ["shaping", "breadboarding", "shape-up", "product-design", "requirements"]
+}
