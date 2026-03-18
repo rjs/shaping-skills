@@ -1,6 +1,12 @@
 ---
 name: shaping
-description: Use this methodology when collaboratively shaping a solution with the user - iterating on problem definition (requirements) and solution options (shapes).
+description: >
+  Guides structured problem decomposition and solution design using the Shape Up
+  methodology. Produces requirements sets (R), solution shapes (S), fit checks,
+  breadboards, spikes, and vertical slices. Use when brainstorming solutions,
+  defining requirements, exploring design options, planning features, scoping
+  work, or breaking a project into buildable increments. Triggers on shaping
+  sessions, problem framing, solution comparison, or implementation slicing.
 ---
 
 # Shaping Methodology
@@ -246,65 +252,7 @@ When re-rendering a requirements table or shape table after making changes, mark
 
 ## Spikes
 
-A spike is an investigation task to learn how the existing system works and what concrete steps are needed to implement a component. Use spikes when there's uncertainty about mechanics or feasibility.
-
-### File Management
-
-**Always create spikes in their own file** (e.g., `spike.md` or `spike-[topic].md`). Spikes are standalone investigation documents that may be shared or worked on independently from the shaping doc.
-
-### Purpose
-
-- Learn how the existing system works in the relevant area
-- Identify **what we would need to do** to achieve a result
-- Enable informed decisions about whether to proceed
-- Not about effort — effort is implicit in the steps themselves
-- **Investigate before proposing** — discover what already exists; you may find the system already satisfies requirements
-
-### Structure
-
-```markdown
-## [Component] Spike: [Title]
-
-### Context
-Why we need this investigation. What problem we're solving.
-
-### Goal
-What we're trying to learn or identify.
-
-### Questions
-
-| # | Question |
-|---|----------|
-| **X1-Q1** | Specific question about mechanics |
-| **X1-Q2** | Another specific question |
-
-### Acceptance
-Spike is complete when all questions are answered and we can describe [the understanding we'll have].
-```
-
-### Acceptance Guidelines
-
-Acceptance describes the **information/understanding** we'll have, not a conclusion or decision:
-
-- ✅ "...we can describe how users set their language and where non-English titles appear"
-- ✅ "...we can describe the steps to implement [component]"
-- ❌ "...we can answer whether this is a blocker" (that's a decision, not information)
-- ❌ "...we can decide if we should proceed" (decision comes after the spike)
-
-The spike gathers information; decisions are made afterward based on that information.
-
-### Question Guidelines
-
-Good spike questions ask about mechanics:
-- "Where is the [X] logic?"
-- "What changes are needed to [achieve Y]?"
-- "How do we [perform Z]?"
-- "Are there constraints that affect [approach]?"
-
-Avoid:
-- Effort estimates ("How long will this take?")
-- Vague questions ("Is this hard?")
-- Yes/no questions that don't reveal mechanics
+Investigation tasks to learn how the existing system works and identify concrete steps for implementation. Always create in their own file (`spike.md`). See `references/spikes.md` for structure, acceptance guidelines, and question patterns.
 
 ## Breadboards
 
@@ -334,96 +282,7 @@ Use **CURRENT** to describe the existing system. This provides a baseline for un
 
 ## Shape Parts
 
-### Flagged Unknown (⚠️)
-
-A mechanism can be described at a high level without being concretely understood. The **Flag** column tracks this:
-
-| Part | Mechanism | Flag |
-|------|-----------|:----:|
-| **F1** | Create widget (component, def, register) | |
-| **F2** | Magic authentication handler | ⚠️ |
-
-- **Empty** = mechanism is understood — we know concretely how to build it
-- **⚠️** = flagged unknown — we've described WHAT but don't yet know HOW
-
-**Why flagged unknowns fail the fit check:**
-
-1. **✅ is a claim of knowledge** — it means "we know how this shape satisfies this requirement"
-2. **Satisfaction requires a mechanism** — some part that concretely delivers the requirement
-3. **A flag means we don't know how** — we've described what we want, not how to build it
-4. **You can't claim what you don't know** — therefore it must be ❌
-
-Fit check is always binary — ✅ or ❌ only. There is no third state. A flagged unknown is a failure until resolved.
-
-This distinguishes "we have a sketch" from "we actually know how to do this." Early shapes (A, B, C) often have many flagged parts — that's fine for exploration. But a selected shape should have no flags (all ❌ resolved), or explicit spikes to resolve them.
-
-### Parts Must Be Mechanisms
-
-Shape parts describe what we BUILD or CHANGE — not intentions or constraints:
-
-- ✅ "Route `childType === 'letter'` to `typesenseService.rawSearch()`" (mechanism)
-- ❌ "Types unchanged" (constraint — belongs in R)
-
-### Avoid Tautologies Between R and S
-
-**R** states the need/constraint (what outcome). **S** describes the mechanism (how to achieve it). If they say the same thing, the shape part isn't adding information.
-
-- ❌ R17: "Admins can bulk request members to sign" + C6.3: "Admin can bulk request members to sign"
-- ✅ R17: "Admins can bring existing members into waiver tracking" + C6.3: "Bulk request UI with member filters, creates WaiverRequests in batch"
-
-The requirement describes the capability needed. The shape part describes the concrete mechanism that provides it. If you find yourself copying text from R into S, stop — the shape part should add specificity about *how*.
-
-### Parts Should Be Vertical Slices
-
-Avoid horizontal layers like "Data model" that group all tables together. Instead, co-locate data models with the features they support:
-
-- ❌ **B4: Data model** — Waivers table, WaiverSignatures table, WaiverRequests table
-- ✅ **B1: Signing handler** — includes WaiverSignatures table + handler logic
-- ✅ **B5: Request tracking** — includes WaiverRequests table + tracking logic
-
-Each part should be a vertical slice containing the mechanism AND the data it needs.
-
-### Extract Shared Logic
-
-When the same logic appears in multiple parts, extract it as a standalone part that others reference:
-
-- ❌ Duplicating "Signing handler: create WaiverSignature + set boolean" in B1 and B2
-- ✅ Extract as **B1: Signing handler**, then B2 and B3 say "→ calls B1"
-
-```markdown
-| **B1** | **Signing handler** |
-| B1.1 | WaiverSignatures table: memberId, waiverId, signedAt |
-| B1.2 | Handler: create WaiverSignature + set member.waiverUpToDate = true |
-| **B2** | **Self-serve signing** |
-| B2 | Self-serve purchase: click to sign inline → calls B1 |
-| **B3** | **POS signing via email** |
-| B3.1 | POS purchase: send waiver email |
-| B3.2 | Passwordless link to sign → calls B1 |
-```
-
-### Hierarchical Notation
-
-Start with flat notation (E1, E2, E3...). Only introduce hierarchy (E1.1, E1.2...) when:
-
-- There are too many parts to easily understand
-- You're reaching a conclusion and want to show structure
-- Grouping related mechanisms aids communication
-
-| Notation | Meaning |
-|----------|---------|
-| E1 | Top-level component of shape E |
-| E1.1, E1.2 | Sub-parts of E1 (add later if needed) |
-
-Example of hierarchical grouping (used when shape is mature):
-
-| Part | Mechanism |
-|------|-----------|
-| **E1** | **Swap data source** |
-| E1.1 | Modify backend indexer |
-| E1.2 | Route letters to new service |
-| E1.3 | Route posts to new service |
-| **E2** | **Add search input** |
-| E2.1 | Add input with debounce |
+Parts describe mechanisms — what we BUILD or CHANGE. Use ⚠️ to flag unknowns (parts where we know WHAT but not HOW). Flagged parts fail fit checks until resolved. See `references/shape-parts.md` for notation, vertical slice guidelines, shared logic extraction, and tautology avoidance.
 
 ## Detailing a Shape
 
@@ -462,88 +321,7 @@ Detail B = expansion of B (not a choice)
 
 ## Documents
 
-Shaping produces up to four documents. Each has a distinct role:
-
-| Document | Contains | Purpose |
-|----------|----------|---------|
-| **Frame** | Source, Problem, Outcome | The "why" — concise, stakeholder-level |
-| **Shaping doc** | Requirements, Shapes (CURRENT/A/B/...), Affordances, Breadboard, Fit Check | The working document — exploration and iteration happen here |
-| **Slices doc** | Slice details, affordance tables per slice, wiring diagrams | The implementation plan — how to build incrementally |
-| **Slice plans** | V1-plan.md, V2-plan.md, etc. | Individual implementation plans for each slice |
-
-### Document Lifecycle
-
-```
-Frame (problem/outcome)
-    ↓
-Shaping (explore, detail, breadboard)
-    ↓
-Slices (plan implementation)
-```
-
-**Frame** can be written first — it captures the "why" before any solution work begins. It contains:
-- **Source** — Original requests, quotes, or material that prompted the work (verbatim)
-- **Problem** — What's broken, what pain exists (distilled from source)
-- **Outcome** — What success looks like (high-level, not solution-specific)
-
-### Capturing Source Material
-
-When the user provides source material during framing (user requests, quotes, emails, slack messages, etc.), **always capture it verbatim** in a Source section at the top of the frame document.
-
-```markdown
-## Source
-
-> I'd like to ask again for your thoughts on a user scenario...
->
-> Small reminder: at the moment, if I want to keep my country admin rights
-> for Russia and Crimea while having Europe Center as my home center...
-
-> [Additional source material added as received]
-
----
-
-## Problem
-...
-```
-
-**Why this matters:**
-- The source is the ground truth — Problem/Outcome are interpretations
-- Preserves context that may be relevant later
-- Allows revisiting the original request if the distillation missed something
-- Multiple sources can be added as they arrive during framing
-
-**When to capture:**
-- User pastes a request or quote
-- User shares an email or message from a stakeholder
-- User describes a scenario they were told about
-- Any raw material that informs the frame
-
-**Shaping doc** is where active work happens. All exploration, requirements gathering, shape comparison, breadboarding, and fit checking happens here. This is the working document and ground truth for R, shapes, parts, and fit checks.
-
-**Slices doc** is created when the selected shape is breadboarded and ready to build. It contains the slice breakdown, affordance tables per slice, and detailed wiring.
-
-### File Management
-
-- **Shaping doc**: Update freely as you iterate — this is the ground truth
-- **Slices doc**: Created when ready to slice, updated as slice scope clarifies
-- **Slice plans**: Individual files (V1-plan.md, etc.) with implementation details
-
-### Frontmatter
-
-Every shaping document (shaping doc, frame, slices doc) must include `shaping: true` in its YAML frontmatter. This enables tooling hooks (e.g., ripple-check reminders) that help maintain consistency across documents.
-
-```markdown
----
-shaping: true
----
-
-# [Feature Name] — Shaping
-...
-```
-
-### Keeping Documents in Sync
-
-See **Multi-Level Consistency** at the top of this document. Changes at any level must ripple to affected levels above and below.
+Shaping produces four document types: **Frame** (problem/outcome), **Shaping doc** (R, shapes, fit checks), **Slices doc** (implementation plan), and **Slice plans** (V1-plan.md, etc.). All must include `shaping: true` in YAML frontmatter. See `references/documents.md` for lifecycle, source capture, file management, and sync rules.
 
 ## Slicing
 
