@@ -1,3 +1,8 @@
+---
+name: breadboard-reflection
+description: Reflect on a breadboard by syncing it to the implementation, then finding and fixing design smells. Works on existing breadboards built with the /breadboarding skill.
+---
+
 # Breadboard Analysis
 
 Reflect on a breadboard by syncing it to the implementation, then finding and fixing design smells. Works on existing breadboards built with the `/breadboarding` skill.

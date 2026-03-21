@@ -26,52 +26,19 @@ These are for working with Claude directly on shaping and design. They're more e
 
 ## Install
 
+This is a Claude Code plugin. Install it by running the `/plugin` command in Claude Code and pointing it at this repository, or add it directly:
+
 ```bash
-# Clone the repo, then symlink each skill into your Claude Code skills directory
-git clone https://github.com/rjs/shaping-skills.git ~/.local/share/shaping-skills
-ln -s ~/.local/share/shaping-skills/framing-doc ~/.claude/skills/framing-doc
-ln -s ~/.local/share/shaping-skills/kickoff-doc ~/.claude/skills/kickoff-doc
-ln -s ~/.local/share/shaping-skills/breadboarding ~/.claude/skills/breadboarding
-ln -s ~/.local/share/shaping-skills/shaping ~/.claude/skills/shaping
+claude plugin add https://github.com/rjs/shaping-skills
 ```
 
-Each skill must be a direct child of `~/.claude/skills/` so Claude Code can discover it. Symlinks keep them updatable with `git pull`.
+All skills and hooks are registered automatically — no symlinks or manual settings.json configuration needed.
 
 ## Hook: Ripple Check
 
-The repo includes a hook that reminds Claude to check for ripple effects when editing shaping documents. When Claude writes or edits a `.md` file with `shaping: true` in its frontmatter, the hook prompts a checklist — update affordance tables, fit checks, work streams, etc.
+The plugin includes a hook that reminds Claude to check for ripple effects when editing shaping documents. When Claude writes or edits a `.md` file with `shaping: true` in its frontmatter, the hook prompts a checklist — update affordance tables, fit checks, work streams, etc.
 
-### Setup
-
-1. Symlink the hook script:
-
-```bash
-mkdir -p ~/.claude/hooks
-ln -s ~/.local/share/shaping-skills/hooks/shaping-ripple.sh ~/.claude/hooks/shaping-ripple.sh
-```
-
-2. Add the hook to your `~/.claude/settings.json`:
-
-```json
-{
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/shaping-ripple.sh",
-            "timeout": 5
-          }
-        ]
-      }
-    ]
-  }
-}
-```
-
-This fires after every `Write` or `Edit` tool call. It only activates for shaping documents (those with `shaping: true` frontmatter) — all other files pass through silently.
+The hook is registered automatically when the plugin is installed. No manual setup required.
 
 ---
 
