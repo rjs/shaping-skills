@@ -26,13 +26,13 @@ These are for working with Claude directly on shaping and design. They're more e
 
 ## Install
 
-This is a Claude Code plugin. Install it by running the `/plugin` command in Claude Code and pointing it at this repository, or add it directly:
+This is a Claude Code plugin marketplace. Install it by running the `/install-plugin` command in Claude Code and pointing it at this repository, or add the marketplace directly:
 
 ```bash
-claude plugin add https://github.com/rjs/shaping-skills
+claude marketplace add https://github.com/rjs/shaping-skills
 ```
 
-All skills and hooks are registered automatically — no symlinks or manual settings.json configuration needed.
+Then enable the `shaping-skills` plugin. All skills and hooks are registered automatically — no symlinks or manual settings.json configuration needed.
 
 ## Hook: Ripple Check
 

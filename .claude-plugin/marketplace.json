@@ -1,0 +1,13 @@
+{
+  "name": "shaping-skills",
+  "owner": {
+    "name": "rjs"
+  },
+  "plugins": [
+    {
+      "name": "shaping-skills",
+      "source": "./plugins/shaping-skills",
+      "description": "Skills for shaping and breadboarding — the methodology from Shape Up adapted for working with an LLM."
+    }
+  ]
+}
