@@ -26,24 +26,24 @@ A kickoff transcript is sequential — people talk through things in the order t
 
 **Organize by the thing being built.** Each section should describe one area of the system fully — so the builder can look up "how does the Criteria tab work?" and find everything in one place.
 
-**Do NOT organize by build sequence.** If the team identified slices (a sequence of vertical slices to build in order), those belong at the end as a short list — the path through the map, not the map itself.
+**Do NOT organize by build sequence.** If the team identified slices (a sequence of vertical slices to build in order), those are managed separately — not in this document.
 
 ---
 
 ## Structure
 
-### 1. Frame
+The document has two top-level sections: **Frame** and **Shape**. Both are `##` headings. Their subsections are `###`.
 
-The strategic context and boundary conditions. This is NOT fluff — the builder needs this to make judgment calls when they hit ambiguity. Include:
+### 1. Frame (`## Frame`)
 
-- Why this project, why now — what depends on it being done
-- The specific outcomes expected by the deadline
-- What prepares what (this piece prepares us for X, that stub prepares us for Y)
-- What is NOT in scope
+The strategic context and boundary conditions. This is NOT fluff — the builder needs this to make judgment calls when they hit ambiguity.
 
-### 2. The Territory (multiple sections)
+- `### Problem` — Why this project, why now. What's broken or missing.
+- `### Outcome` — The specific outcomes expected. What success looks like.
 
-One section per area of the system. For each area, describe:
+### 2. Shape (`## Shape`)
+
+One `###` section per area of the system. For each area, describe:
 
 - What it is and what's on the screen (affordances, components, data displayed)
 - How it relates to other areas
@@ -51,9 +51,7 @@ One section per area of the system. For each area, describe:
 - Edge cases or flags that were called out
 - What's temporary/placeholder vs. what's a real commitment
 
-### 3. Build Sequence (at the end)
-
-If slices were identified, list them briefly. Each slice name + one line. This is just a path through the territory described above.
+**Do NOT include a Build Sequence section.** Slices are tracked separately from this document.
 
 ---
 
@@ -96,9 +94,8 @@ If a decision only matters when building one specific area, it belongs in that a
 ## Process
 
 1. **Read the full transcript.** Don't start writing after reading part of it.
-2. **Identify the areas of the system** that were discussed — these become your sections.
-3. **Draft the Frame** from the framing/outcomes discussion (usually near the start of the call).
-4. **Write each territory section**, pulling from wherever in the transcript that area was discussed. A single section may draw from moments scattered across the whole call.
+2. **Identify the areas of the system** that were discussed — these become your `###` sections under `## Shape`.
+3. **Draft the Frame** (`## Frame` with `### Problem` and `### Outcome`) from the framing/outcomes discussion (usually near the start of the call).
+4. **Write each Shape section** (`### ...`), pulling from wherever in the transcript that area was discussed. A single section may draw from moments scattered across the whole call.
 5. **Place design decisions inline** in the section they belong to.
-6. **List the build sequence** at the end if slices were discussed (usually near the end of the call).
-7. **Review against the transcript** — can you point to where each claim was said?
+6. **Review against the transcript** — can you point to where each claim was said?
