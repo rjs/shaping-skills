@@ -541,6 +541,12 @@ shaping: true
 ...
 ```
 
+### Ripple Check
+
+Every edit to a `shaping: true` document should trigger a ripple check — a set of consistency checks that prevent sections from drifting out of sync. Use the `/shaping-ripple-check` skill for the full checklist.
+
+If you have a ripple-check hook installed (e.g., `PostToolUse`), it will fire automatically. Otherwise, apply the checks manually after every edit to a shaping document.
+
 ### Keeping Documents in Sync
 
 See **Multi-Level Consistency** at the top of this document. Changes at any level must ripple to affected levels above and below.
